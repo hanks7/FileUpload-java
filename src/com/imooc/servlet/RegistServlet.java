@@ -52,7 +52,7 @@ public class RegistServlet extends HttpServlet {
                         // 接收到一个值，将这个值存入到hobbyList集合中
                         hobbyList.add(hobbyValue);
                         hobbyValue = hobbyList.toString().substring(1, hobbyList.toString().length() - 1); // xxx,yyy
-                        Ulog.i(name + "     " + hobbyValue);
+                        Ulog.i("hobby",name + "     " + hobbyValue);
                         // 将爱好的数据存入到Map集合中:
                         map.put(name, hobbyValue);
                     } else {
@@ -88,7 +88,7 @@ public class RegistServlet extends HttpServlet {
 
                 }
             }
-            Ulog.i(map);
+            Ulog.i("map",map);
             // 获得ServletContext对象:
             List<User> userList = (List<User>) this.getServletContext().getAttribute("list");
             // 校验用户名:
@@ -111,7 +111,7 @@ public class RegistServlet extends HttpServlet {
 
             userList.add(user);
             for (User u : userList) {
-                Ulog.i(u);
+                Ulog.i("user",u);
             }
             this.getServletContext().setAttribute("list", userList);
             // 注册成功，跳转到登录页面:
@@ -119,9 +119,15 @@ public class RegistServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login.jsp");
         } catch (FileUploadException e) {
             e.printStackTrace();
-            Ulog.i(e.getMessage());
+            Ulog.i("FileUploadException",e.getMessage());
         }
 
+    }
+
+
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
     }
 
     /**
@@ -136,10 +142,6 @@ public class RegistServlet extends HttpServlet {
         if (!dir.exists()) {
             dir.mkdirs();
         }
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
     }
 
 }
