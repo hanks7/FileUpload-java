@@ -21,7 +21,14 @@ import java.util.Map;
 
 @WebServlet("/RegistServlet")
 public class RegistServlet extends HttpServlet {
-
+    /**
+     * 如果你想使用文件上传则需要使用到两个jar包 分别是commons-fileupload-1.2.1.jar commons-io-1.4.jar 一定要放在web-inf 下的lib目录中
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 数据的接收
         // 文件上传基本操作:
@@ -39,20 +46,21 @@ public class RegistServlet extends HttpServlet {
             // 4.遍历集合，获得每个FileItem，判断是表单项还是文件上传项
             String url = null;
             for (FileItem fileItem : list) {
-                // 判断是表单项还是文件上传项
+                // 是表单项
                 if (fileItem.isFormField()) {
                     // 普通表单项:
                     // 接收表单项参数的值:
                     String name = fileItem.getFieldName(); // 获得表单项的name属性的值
                     String value = fileItem.getString("UTF-8");// 获得表单项的值
-                    Ulog.i(name + "    " + value);
+                    Ulog.i("hobby", name, value);
                     // 接收复选框的数据
                     if ("hobby".equals(name)) {
                         String hobbyValue = fileItem.getString("UTF-8");
                         // 接收到一个值，将这个值存入到hobbyList集合中
                         hobbyList.add(hobbyValue);
-                        hobbyValue = hobbyList.toString().substring(1, hobbyList.toString().length() - 1); // xxx,yyy
-                        Ulog.i("hobby",name + "     " + hobbyValue);
+                        Ulog.i("mappp", name, hobbyValue);
+                        hobbyValue = hobbyList.toString().substring(1, hobbyList.toString().length() - 1); // [xxx,yyy,ccc] 主要是为了将"[]"去除掉 substring不保留头部
+                        Ulog.i("hobby", name, hobbyValue);
                         // 将爱好的数据存入到Map集合中:
                         map.put(name, hobbyValue);
                     } else {
@@ -60,7 +68,7 @@ public class RegistServlet extends HttpServlet {
                         map.put(name, value);
                     }
                 } else {
-                    // 文件上传项:
+                    //是文件上传项
                     // 文件上传功能：
                     // 获得文件上传的名称：
                     String fileName = fileItem.getName();
@@ -88,7 +96,7 @@ public class RegistServlet extends HttpServlet {
 
                 }
             }
-            Ulog.i("map",map);
+            Ulog.i("map", map);
             // 获得ServletContext对象:
             List<User> userList = (List<User>) this.getServletContext().getAttribute("list");
             // 校验用户名:
@@ -111,7 +119,7 @@ public class RegistServlet extends HttpServlet {
 
             userList.add(user);
             for (User u : userList) {
-                Ulog.i("user",u);
+                Ulog.i("user", u);
             }
             this.getServletContext().setAttribute("list", userList);
             // 注册成功，跳转到登录页面:
@@ -119,11 +127,10 @@ public class RegistServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login.jsp");
         } catch (FileUploadException e) {
             e.printStackTrace();
-            Ulog.i("FileUploadException",e.getMessage());
+            Ulog.i("FileUploadException", e.getMessage());
         }
 
     }
-
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -132,6 +139,7 @@ public class RegistServlet extends HttpServlet {
 
     /**
      * 创建文件夹
+     *
      * @param path
      */
     private void createDir(String path) {
