@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * ***************注意************************
  * application context :reg_login
+ * ***************注意************************
  */
 @WebServlet(name = "InitServlet")
 public class InitServlet extends HttpServlet {
