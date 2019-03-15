@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * application context :reg_login
+ */
 @WebServlet(name = "InitServlet")
 public class InitServlet extends HttpServlet {
     @Override

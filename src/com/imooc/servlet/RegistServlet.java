@@ -22,7 +22,10 @@ import java.util.Map;
 @WebServlet("/RegistServlet")
 public class RegistServlet extends HttpServlet {
     /**
-     * 如果你想使用文件上传则需要使用到两个jar包 分别是commons-fileupload-1.2.1.jar commons-io-1.4.jar 一定要放在web-inf 下的lib目录中
+     * 如果你想使用文件上传则需要使用到两个jar包 分别是
+     * commons-fileupload-1.2.1.jar
+     * commons-io-1.4.jar
+     * 一定要放在web-inf 下的lib目录中
      *
      * @param request
      * @param response
