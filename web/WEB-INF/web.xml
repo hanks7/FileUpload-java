@@ -6,7 +6,7 @@
     <display-name>imocc</display-name>
 
     <!--***************注意************************
-            application context :jdbc
+            application context :reg_login
     ***************注意************************-->
 
 
